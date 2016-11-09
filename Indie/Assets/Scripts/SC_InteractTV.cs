@@ -14,7 +14,6 @@ public class SC_InteractTV : MonoBehaviour {
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
     bool isAlive = true;
 
-	// Use this for initialization
 	void Start () {
         actionText = action.GetComponent<Text>();
 		currentAction = Action.ON_OFF;
@@ -30,7 +29,6 @@ public class SC_InteractTV : MonoBehaviour {
         isAlive = status;
     }
 
-    // Update is called once per frame
     void Update () {
 
         if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive)  // lorsqu'on appuie sur la touche action
