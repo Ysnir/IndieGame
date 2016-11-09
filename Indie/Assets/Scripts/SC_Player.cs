@@ -22,7 +22,7 @@ public class SC_Player : MonoBehaviour {
             gameObject.SendMessage("setPlayer");    // on l'appelle une fois si c'est le joueur 1, deux fois pour le joueur 2...
         }
         hp = hpMax;
-        lifebar.maxValue = hpMax;   // on initialise la bare de vie
+        lifebar.maxValue = hpMax;   // on initialise la barre de vie
         lifebar.value = hp;
     }
 	

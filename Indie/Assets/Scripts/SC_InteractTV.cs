@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class SC_InteractTV : MonoBehaviour {
 
     public GameObject action;
     SC_TV TVScript;
     Text actionText;
-    int currentAction;  // l'action sélectionnée par le joueur. 1 = allumer/éteindre ; 2 = pousser
+    Action currentAction;  
+	enum Action {ON_OFF=1, PUSH=2}; // l'action sélectionnée par le joueur. 1 = allumer/éteindre ; 2 = pousser
     bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
     bool isAlive = true;
@@ -15,7 +17,7 @@ public class SC_InteractTV : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         actionText = action.GetComponent<Text>();
-        currentAction = 1;
+		currentAction = Action.ON_OFF;
 	}
 	
     public void setPlayer()
@@ -35,7 +37,7 @@ public class SC_InteractTV : MonoBehaviour {
         {
             switch (currentAction)      // un switch pour agir en fonction de l'action
             {
-                case 1:
+                case Action.ON_OFF:
                     if (TVScript.isPlayingSound)    // si la TV est en train de faire du bruit
                     {
                         TVScript.Off();
@@ -48,7 +50,7 @@ public class SC_InteractTV : MonoBehaviour {
                     }
                     break;
 
-                case 2:
+                case Action.PUSH:
                     TVScript.Push(new Vector2(TVScript.gameObject.transform.position.x - transform.position.x, TVScript.gameObject.transform.position.y - transform.position.y).normalized);
                     break;
 
@@ -60,25 +62,25 @@ public class SC_InteractTV : MonoBehaviour {
 
         if (Input.GetButtonDown("ChangeActionRightJ" + player) && canInteract && isAlive)
         {
-            if (currentAction < 2)  // avec ici 2 actions possibles. Pour N actions, mettre "currentAction < N"
+            if ((int)currentAction < Enum.GetNames(typeof(Action)).Length)  // L'action courante est comparee au nombre d'actions possibles
             {
                 currentAction++;
             }
             else
             {
-                currentAction = 1;  // retour à la première action
+                currentAction = (Action)1;  // retour à la première action
             }
             NewAction();
         }
         if (Input.GetButtonDown("ChangeActionLeftJ" + player) && canInteract && isAlive)
         {
-            if (currentAction > 1)
+            if ((int)currentAction > 1)
             {
                 currentAction--;
             }
             else
             {
-                currentAction = 2;  // retour à la cernière action
+                currentAction = (Action)Enum.GetNames(typeof(Action)).Length;  // retour à la dernière action
             }
             NewAction();
         }
@@ -89,7 +91,7 @@ public class SC_InteractTV : MonoBehaviour {
     {
         switch (currentAction)
         {
-            case 1:
+            case Action.ON_OFF:
                 if (TVScript.isPlayingSound)
                 {
                     actionText.text = "Eteindre";
@@ -100,7 +102,7 @@ public class SC_InteractTV : MonoBehaviour {
                 }
                     break;
 
-            case 2:
+            case Action.PUSH:
                 actionText.text = "Pousser";
                 break;
 
