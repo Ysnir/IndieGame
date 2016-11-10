@@ -10,7 +10,7 @@ public class SC_Player : MonoBehaviour {
     public int player;  // le numéro de joueur, pour pouvoir le donner aux scripts d'action
 
     public int hpMax = 50; // les points de vie du joueur, mis à 50 de manière arbitraire
-    private int hp; // les points de vie actuels du joueur
+    int hp; // les points de vie actuels du joueur
     public Slider lifebar;  // le slider servant de jauge de vie
     private bool isAlive = true;    // booléen à true tant que le personnage est vivant
 
@@ -22,7 +22,7 @@ public class SC_Player : MonoBehaviour {
             gameObject.SendMessage("setPlayer");    // on l'appelle une fois si c'est le joueur 1, deux fois pour le joueur 2...
         }
         hp = hpMax;
-        lifebar.maxValue = hpMax;   // on initialise la barre de vie
+        lifebar.maxValue = hpMax;   // on initialise la bare de vie
         lifebar.value = hp;
     }
 	
