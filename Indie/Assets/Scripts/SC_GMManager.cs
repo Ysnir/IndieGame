@@ -7,18 +7,18 @@ public class SC_GMManager : MonoBehaviour {
     public GameObject[] target;
     public GameObject[] glowObject;
     private int actualTarget = 0;
+    public int player;  // le numéro de joueur, pour pouvoir le donner aux scripts d'action
 
     // Use this for initialization
     void Start () {
         
         glowObject[actualTarget].SetActive(true);
-
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetButtonDown("ChangeActionRightJ" + player))   // Ajouter "Input.GetKeyDown(KeyCode.D) || " dans la condition pour jouer au clavier
         {
             glowObject[actualTarget].SetActive(false);      // on quitte l'objet actuel
 
@@ -34,7 +34,7 @@ public class SC_GMManager : MonoBehaviour {
             glowObject[actualTarget].SetActive(true);   // on rentre dans le nouvel objet
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("ChangeActionLeftJ" + player))  // Ajouter "Input.GetKeyDown(KeyCode.Q) || " dans la condition pour jouer au clavier
         {
             glowObject[actualTarget].SetActive(false);      // on quitte l'objet actuel
 
@@ -50,7 +50,7 @@ public class SC_GMManager : MonoBehaviour {
             glowObject[actualTarget].SetActive(true);   // on rentre dans le nouve objet
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("ActionJ" + player))
         {
             target[actualTarget].SendMessage("GMSpecificAction");
         }
