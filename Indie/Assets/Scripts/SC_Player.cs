@@ -13,6 +13,7 @@ public class SC_Player : MonoBehaviour {
     int hp; // les points de vie actuels du joueur
     public Slider lifebar;  // le slider servant de jauge de vie
     private bool isAlive = true;    // booléen à true tant que le personnage est vivant
+    private bool isSprinting = false; //booleen a true lorsque le personnage est entrain de courir
 
     // Use this for initialization
     void Start () {
@@ -28,10 +29,20 @@ public class SC_Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-
-
-	}
+        if (Input.GetAxisRaw("SprintJ" + player) != 0)
+        {
+            if (isSprinting == false)
+            {
+                speed = 5.0f;
+                isSprinting = true;
+            }
+        }
+        if (Input.GetAxisRaw("SprintJ" + player) == 0)
+        {
+            speed = 3.0f;
+            isSprinting = false;
+        }
+    }
 
     void FixedUpdate()
     {
