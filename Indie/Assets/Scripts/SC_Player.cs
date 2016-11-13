@@ -5,7 +5,10 @@ using UnityEngine.UI;   // pour pouvoir utiliser le canvas associé au joueur
 public class SC_Player : MonoBehaviour {
 
     public GameObject characterSprite;  // le sprite du personnage
-    public float speed = 3.0f;  // la vitesse de déplacement du joueur
+    float speed;  // la vitesse de déplacement actuelle du joueur
+    public float walkSpeed = 3.0f;  // la vitesse de déplacement en marchant du joueur
+    public float runSpeed = 5.0f;  // la vitesse de déplacement en courant du joueur
+    bool canMove = true;    // à true tant que le joueur peut se déplacer
     private Rigidbody rb;   // le rigidbody associé au personnage
     public int player;  // le numéro de joueur, pour pouvoir le donner aux scripts d'action
 
@@ -33,20 +36,20 @@ public class SC_Player : MonoBehaviour {
         {
             if (isSprinting == false)
             {
-                speed = 5.0f;
+                speed = runSpeed;
                 isSprinting = true;
             }
         }
         if (Input.GetAxisRaw("SprintJ" + player) == 0)
         {
-            speed = 3.0f;
+            speed = walkSpeed;
             isSprinting = false;
         }
     }
 
     void FixedUpdate()
     {
-        if (isAlive)
+        if (isAlive && canMove)
         {
             float moveHorizontal = Input.GetAxis("HorizontalJ" + player);
             float moveVertical = Input.GetAxis("VerticalJ" + player);
@@ -63,8 +66,13 @@ public class SC_Player : MonoBehaviour {
         lifebar.value = hp;
         if (hp <= 0)
         {
-
+            Death();
         }
+    }
+
+    public void FullHeal()
+    {
+        hp = hpMax;
     }
 
     public void Death()
@@ -77,5 +85,10 @@ public class SC_Player : MonoBehaviour {
     {
         isAlive = true;
         gameObject.SendMessage("setAliveStatus", isAlive);    // on dit à tous les autres scripts que le personnage est de nouveau vivant
+    }
+
+    public void setCanMove (bool newCanMove)
+    {
+        canMove = newCanMove;
     }
 }

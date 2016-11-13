@@ -12,7 +12,7 @@ public class SC_InteractTV : MonoBehaviour {
     enum Action {ON_OFF=1, PUSH=2, THROW=3};// l'action sélectionnée par le joueur. 1 = allumer/éteindre ; 2 = pousser ; 3 = lancer
     bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
-    bool isAlive = true;
+    bool isAlive = true;    // le joueur est-il toujours en vie ?
 
 	// Use this for initialization
 	void Start () {
@@ -84,7 +84,7 @@ public class SC_InteractTV : MonoBehaviour {
             }
             else
             {
-                currentAction = (Action)3;  // retour à la cernière action
+                currentAction = (Action)3;  // retour à la dernière action
             }
             NewAction();
         }
@@ -123,16 +123,6 @@ public class SC_InteractTV : MonoBehaviour {
     {
         TVScript = script;
         canInteract = true;
-        //currentAction = 1;
-
-        /*if (isPlayingSound)
-        {
-            actionText.text = "Eteindre";
-        }
-        else
-        {
-            actionText.text = "Allumer";
-        }*/
         NewAction();
         action.SetActive(true);
     }
