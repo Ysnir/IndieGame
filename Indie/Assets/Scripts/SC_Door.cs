@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SC_Door : MonoBehaviour {
 
+    public BoxCollider collisionBox;   // la box de collision de la porte
     private bool isOpen = false;
     public float damageWhenBrokenDown;  // les dégâts infligés si un joueur tente de défoncer la porte
 
@@ -45,6 +46,14 @@ public class SC_Door : MonoBehaviour {
     {
         animator.SetTrigger("openClose");
         isOpen = !isOpen;
+        if (isOpen)
+        {
+            collisionBox.isTrigger = true;  // pour pouvoir passer à travers
+        }
+        else
+        {
+            collisionBox.isTrigger = false;  // pour ne plus passer à travers
+        }
     }
 
     public bool getIsOpen()
