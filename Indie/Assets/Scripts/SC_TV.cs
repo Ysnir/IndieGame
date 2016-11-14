@@ -10,7 +10,7 @@ public class SC_TV : MonoBehaviour {
     private float pushDuration = 0.2f;
     private float throwDuration = 0.5f;
 
-    public float damageWhenThrown;  // les dégâts infligés par l'objet lorsqu'il est lancé
+    public int damageWhenThrown;  // les dégâts infligés par l'objet lorsqu'il est lancé
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +24,7 @@ public class SC_TV : MonoBehaviour {
 
     void OnTriggerEnter(Collider c) // Si quelque chose entre dans le trigger
     {
-        if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4") && !isPlayingSound)   // Si c'est l'un des joueurs qui est entré dans le trigger et que le son n'est pas déjà en train de se faire jouer
+        if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui est entré dans le trigger et que le son n'est pas déjà en train de se faire jouer
         {
             On();
             c.gameObject.GetComponent<SC_InteractTV>().CanIntertact(this, isPlayingSound);
@@ -38,7 +38,7 @@ public class SC_TV : MonoBehaviour {
 
     void OnTriggerExit(Collider c) // Si quelque chose sort du trigger
     {
-        if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4") && isPlayingSound)   // Si c'est l'un des joueurs qui vient d'en sortir et que le son jouait déjà
+        if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui vient d'en sortir et que le son jouait déjà
         {
             Off();
             c.gameObject.GetComponent<SC_InteractTV>().CanNotIntertact();

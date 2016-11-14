@@ -5,7 +5,12 @@ using UnityEngine.UI;   // pour pouvoir utiliser le canvas associé au joueur
 public class SC_Player : MonoBehaviour {
 
     public GameObject characterSprite;  // le sprite du personnage
-    public float speed = 3.0f;  // la vitesse de déplacement du joueur
+    float speed;  // la vitesse de déplacement actuelle du joueur
+    public float walkSpeed = 3.0f;  // la vitesse de déplacement en marchant du joueur
+    public float runSpeed = 5.0f;  // la vitesse de déplacement en courant du joueur
+    bool canMove = true;    // à true tant que le joueur peut se déplacer
+    public float coefSpeedCoffee = 1.0f;   //coefficient multiplicateur pour la vitesse quand le PJ a pris du café
+
     private Rigidbody rb;   // le rigidbody associé au personnage
     public int player;  // le numéro de joueur, pour pouvoir le donner aux scripts d'action
 
@@ -33,20 +38,20 @@ public class SC_Player : MonoBehaviour {
         {
             if (isSprinting == false)
             {
-                speed = 5.0f;
+                speed = runSpeed * coefSpeedCoffee;
                 isSprinting = true;
             }
         }
         if (Input.GetAxisRaw("SprintJ" + player) == 0)
         {
-            speed = 3.0f;
+            speed = walkSpeed * coefSpeedCoffee;
             isSprinting = false;
         }
     }
 
     void FixedUpdate()
     {
-        if (isAlive)
+        if (isAlive && canMove)
         {
             float moveHorizontal = Input.GetAxis("HorizontalJ" + player);
             float moveVertical = Input.GetAxis("VerticalJ" + player);
@@ -60,15 +65,26 @@ public class SC_Player : MonoBehaviour {
     public void ChangeHealth (int life)     // la fonction à appeler lorsque la vie du personnage change (avec en paramètre les points de vie à ajouter)
     {
         hp += life;
+        if (hp > hpMax) // pour ne pas avoir plus de PVs que la vie maximum
+        {
+            hp = hpMax;
+        }
         lifebar.value = hp;
         if (hp <= 0)
         {
-
+            Death();
         }
+    }
+
+    public void FullHeal()
+    {
+        hp = hpMax;
+        lifebar.value = hp;
     }
 
     public void Death()
     {
+        hp = 0;
         isAlive = false;
         gameObject.SendMessage("setAliveStatus", isAlive);    // on dit à tous les autres scripts que le personnage est mort
     }
@@ -77,5 +93,15 @@ public class SC_Player : MonoBehaviour {
     {
         isAlive = true;
         gameObject.SendMessage("setAliveStatus", isAlive);    // on dit à tous les autres scripts que le personnage est de nouveau vivant
+    }
+
+    public void setCanMove (bool newCanMove)
+    {
+        canMove = newCanMove;
+    }
+
+    public void setCoefSpeedCoffee(float newCoefSpeedCoffee)
+    {
+        coefSpeedCoffee = newCoefSpeedCoffee;
     }
 }
