@@ -40,12 +40,12 @@ public class SC_InteractTV : MonoBehaviour {
                 case Action.ON_OFF:
                     if (TVScript.getIsPlayingSound())    // si la TV est en train de faire du bruit
                     {
-                        TVScript.Off();
+                        TVScript.ToggleTV();
                         actionText.text = "Allumer";
                     }
                     else
                     {
-                        TVScript.On();
+                        TVScript.ToggleTV();
                         actionText.text = "Eteindre";
                     }
                     break;

@@ -26,13 +26,13 @@ public class SC_TV : MonoBehaviour {
     {
         if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui est entré dans le trigger et que le son n'est pas déjà en train de se faire jouer
         {
-            On();
+            ToggleTV();
             c.gameObject.GetComponent<SC_InteractTV>().CanIntertact(this, isPlayingSound);
-        }
 
-        if (isThrown)  // si l'objet est en train de se faire lancer
-        {
-            c.SendMessage("ChangeHealth", -damageWhenThrown);   // damageWhenThrownest envoyé en négatif, car ce sont des dégâts
+			if (isThrown)  // si l'objet est en train de se faire lancer
+			{
+				c.SendMessage("ChangeHealth", -damageWhenThrown);   // damageWhenThrownest envoyé en négatif, car ce sont des dégâts
+			}
         }
     }
 
@@ -40,7 +40,7 @@ public class SC_TV : MonoBehaviour {
     {
         if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui vient d'en sortir et que le son jouait déjà
         {
-            Off();
+            ToggleTV();
             c.gameObject.GetComponent<SC_InteractTV>().CanNotIntertact();
         }
     }
@@ -50,22 +50,22 @@ public class SC_TV : MonoBehaviour {
         noise.volume = Random.value;
     }
 
-    public void On()
-    {
-        if (!isPlayingSound)    // si la TV n'est pas en train de faire du bruit
-        {
-            noise.Play();
-            isPlayingSound = true;
-        }
-    }
-
-    public void Off()   // fonction pour éteindre la TV
+    public void ToggleTV()   // fonction pour éteindre la TV
     {
         if (isPlayingSound)    // si la TV est en train de faire du bruit
         {
             noise.Pause();
             isPlayingSound = false;
         }
+          else if(!isPlayingSound)    // si la TV n'est pas en train de faire du bruit
+        {
+            noise.Play();
+            isPlayingSound = true;
+        }
+    }
+
+    public void SetIsPlayingSound(bool _isPlayingSound) {
+        isPlayingSound = _isPlayingSound;
     }
 
     public void Push(Vector2 direction)
