@@ -6,10 +6,7 @@ using System;
 public class SC_InteractCoffee : MonoBehaviour {
 
 	public GameObject action;
-<<<<<<< HEAD
     public SC_GMManager gmManagerScript;
-=======
->>>>>>> origin/master
 	SC_Coffee coffeeScript;
 	Text actionText;
 	Action currentAction;  
@@ -48,13 +45,8 @@ public class SC_InteractCoffee : MonoBehaviour {
 			if (coffeeScript.trap == true)
 			{
 				GetComponent<SC_Player> ().ChangeHealth (-lostHP);
-<<<<<<< HEAD
                 coffeeScript.gameObject.SetActive(false);
                 gmManagerScript.RemoveObject(coffeeScript.gameObject);   // on retire la cafetière des objets du MJ
-                //Destroy (coffeeScript.gameObject);
-=======
-				Destroy (coffeeScript.gameObject);
->>>>>>> origin/master
 				CanNotIntertact ();
 			}
 			else
