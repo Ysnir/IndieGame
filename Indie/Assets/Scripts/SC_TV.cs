@@ -28,11 +28,11 @@ public class SC_TV : MonoBehaviour {
         {
             On();
             c.gameObject.GetComponent<SC_InteractTV>().CanIntertact(this, isPlayingSound);
-        }
 
-        if (isThrown)  // si l'objet est en train de se faire lancer
-        {
-            c.SendMessage("ChangeHealth", -damageWhenThrown);   // damageWhenThrownest envoyé en négatif, car ce sont des dégâts
+			if (isThrown)  // si l'objet est en train de se faire lancer
+			{
+				c.SendMessage("ChangeHealth", -damageWhenThrown);   // damageWhenThrownest envoyé en négatif, car ce sont des dégâts
+			}
         }
     }
 
@@ -50,22 +50,21 @@ public class SC_TV : MonoBehaviour {
         noise.volume = Random.value;
     }
 
-    public void On()
-    {
-        if (!isPlayingSound)    // si la TV n'est pas en train de faire du bruit
-        {
-            noise.Play();
-            isPlayingSound = true;
-        }
-    }
-
     public void Off()   // fonction pour éteindre la TV
     {
-        if (isPlayingSound)    // si la TV est en train de faire du bruit
-        {
-            noise.Pause();
-            isPlayingSound = false;
-        }
+            if (isPlayingSound)    // si la TV est en train de faire du bruit
+            {
+                noise.Pause();
+                isPlayingSound = false;
+            }
+    }
+
+    public void On()  
+    {
+            if (!isPlayingSound) {
+                noise.Play();
+                isPlayingSound = true;
+            }
     }
 
     public void Push(Vector2 direction)
