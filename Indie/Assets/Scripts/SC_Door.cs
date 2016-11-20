@@ -26,7 +26,11 @@ public class SC_Door : MonoBehaviour {
     {
         if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui est entré dans le trigger
         {
-            c.gameObject.GetComponent<SC_InteractDoor>().CanIntertact(this);
+            SC_Player playerScript = c.GetComponent<SC_Player>();
+            if(!playerScript.getIsHolding()) 
+            {
+                c.gameObject.GetComponent<SC_InteractDoor>().CanIntertact(this);
+            }
         }
     }
 

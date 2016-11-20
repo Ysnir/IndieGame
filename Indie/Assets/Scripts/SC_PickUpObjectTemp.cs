@@ -6,7 +6,7 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
 
     CapsuleCollider capsuleCollider;
 
-    bool isHold = false;    // l'objet est-il tenu par quelqu'un ?
+    public bool isHold = false;    // l'objet est-il tenu par quelqu'un ?
     //int potentialOwner;
     //int owner;
     List<int> potentialOwners = new List<int>();
@@ -55,7 +55,7 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
         }
     }
 
-    void Grab(SC_Player c)
+    public void Grab(SC_Player c)
     {
         transform.SetParent(c.transform, true);
         capsuleCollider.enabled = false;
@@ -63,7 +63,7 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
         c.notifyIsHolding(true);
     }
 
-    void Release(SC_Player c)
+    public void Release(SC_Player c)
     {
         transform.SetParent(null);
         capsuleCollider.enabled = true;
