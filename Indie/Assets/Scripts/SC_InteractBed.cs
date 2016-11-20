@@ -14,7 +14,8 @@ public class SC_InteractBed : MonoBehaviour {
     bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
     bool isAlive = true;    // le joueur est-il toujours en vie ?
-
+    bool isHolding = false;    // le joueur est-il entrain de porter un objet?
+    
     public int damageDealt;  // le nombre de points de vie perdus en cas de paralysie du sommeil
     public float timeToSleep;    // le temps à passer immobile en cas de sommeil
     public float timeSleepParalysis;    // le temps à passer immobile en cas de paralysie du sommeil
@@ -36,10 +37,14 @@ public class SC_InteractBed : MonoBehaviour {
         isAlive = status;
     }
 
+	public void setIsHolding(bool _isHolding) {
+        isHolding = _isHolding;
+    }
+
     // Update is called once per frame
     void Update () {
 
-        if (Input.GetButtonDown("ActionJ" + player) && canInteract && isAlive)  // lorsqu'on appuie sur la touche action
+        if (Input.GetButtonDown("ActionJ" + player) && canInteract && isAlive && !isHolding)  // lorsqu'on appuie sur la touche action
         {
             switch (currentAction)      // un switch pour agir en fonction de l'action
             {

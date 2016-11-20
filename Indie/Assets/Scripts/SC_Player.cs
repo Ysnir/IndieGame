@@ -18,6 +18,7 @@ public class SC_Player : MonoBehaviour {
     int hp; // les points de vie actuels du joueur
     public Slider lifebar;  // le slider servant de jauge de vie
     private bool isAlive = true;    // booléen à true tant que le personnage est vivant
+    private bool isHolding = false;
     private bool isSprinting = false; //booleen a true lorsque le personnage est entrain de courir
 
     // Use this for initialization
@@ -103,5 +104,14 @@ public class SC_Player : MonoBehaviour {
     public void setCoefSpeedCoffee(float newCoefSpeedCoffee)
     {
         coefSpeedCoffee = newCoefSpeedCoffee;
+    }
+
+    public void notifyIsHolding(bool _isHolding) {
+        isHolding = _isHolding;
+        gameObject.SendMessage("setIsHolding", _isHolding);
+    }
+
+    public bool getIsHolding () {
+        return isHolding;
     }
 }

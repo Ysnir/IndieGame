@@ -14,7 +14,8 @@ public class SC_InteractCoffee : MonoBehaviour {
 	bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
 	int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
 	bool isAlive = true;    // le joueur est-il toujours en vie ?
-
+	bool isHolding = false;    // le joueur est-il entrain de porter un objet?
+    
 	public float speedCoef;   //par combien l'action "Boire" multiplie la vitesse de déplacement
 	public float buffsDuration;   //durée des effets
 	public int restoredHP;   //nombre de PVs soignés en prenant un café
@@ -37,10 +38,14 @@ public class SC_InteractCoffee : MonoBehaviour {
 		isAlive = status;
 	}
 
+	public void setIsHolding(bool _isHolding) {
+        isHolding = _isHolding;
+    }
+
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive)  // lorsqu'on appuie sur la touche action
+		if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive && !isHolding)  // lorsqu'on appuie sur la touche action
 		{
 			if (coffeeScript.trap == true)
 			{

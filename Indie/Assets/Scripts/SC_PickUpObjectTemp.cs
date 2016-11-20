@@ -23,13 +23,14 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
     {
         for (int i = 0; i<potentialOwners.Count; i++)   // pour tout télément dans la liste potentialOwners
         {
+            SC_Player ownerScript = GameObject.FindWithTag("Player" + potentialOwners[i]).GetComponent<SC_Player>();
             if (potentialOwners.Count > 0 && Input.GetButtonDown("ActionJ" + potentialOwners[i]) && !isHold)   // si le joueur appuie sur A alors qu'il ne tient pas l'objet
             {
-                Grab(GameObject.FindWithTag("Player" + potentialOwners[i]).GetComponent<SC_Player>());
+                Grab(ownerScript);
             }
             else if (Input.GetButtonDown("ActionJ" + potentialOwners[i]) && isHold)   // si le joueur appuie sur A alors qu'il tient l'objet
             {
-                Release();
+                Release(ownerScript);
             }
         }
     }
@@ -59,12 +60,14 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
         transform.SetParent(c.transform, true);
         capsuleCollider.enabled = false;
         isHold = true;
+        c.notifyIsHolding(true);
     }
 
-    void Release()
+    void Release(SC_Player c)
     {
         transform.SetParent(null);
         capsuleCollider.enabled = true;
         isHold = false;
+        c.notifyIsHolding(false);
     }
 }

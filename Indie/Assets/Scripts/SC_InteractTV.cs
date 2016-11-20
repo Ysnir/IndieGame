@@ -13,6 +13,7 @@ public class SC_InteractTV : MonoBehaviour {
     bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
     bool isAlive = true;    // le joueur est-il toujours en vie ?
+    bool isHolding = false;    // le joueur est-il entrain de porter un objet?
 
 	// Use this for initialization
 	void Start () {
@@ -30,10 +31,14 @@ public class SC_InteractTV : MonoBehaviour {
         isAlive = status;
     }
 
+    public void setIsHolding(bool _isHolding) {
+        isHolding = _isHolding;
+    }
+
     // Update is called once per frame
     void Update () {
 
-        if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive)  // lorsqu'on appuie sur la touche action
+        if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive && !isHolding)  // lorsqu'on appuie sur la touche action
         {
             switch (currentAction)      // un switch pour agir en fonction de l'action
             {
@@ -64,7 +69,7 @@ public class SC_InteractTV : MonoBehaviour {
             
         }
 
-        if (Input.GetButtonDown("ChangeActionRightJ" + player) && canInteract && isAlive)
+        if (Input.GetButtonDown("ChangeActionRightJ" + player) && canInteract && isAlive && !isHolding)
         {
             if ((int)currentAction < Enum.GetNames(typeof(Action)).Length)  //Compare l'action courante avec le nombre total d'action possible
             {
@@ -76,7 +81,7 @@ public class SC_InteractTV : MonoBehaviour {
             }
             NewAction();
         }
-        if (Input.GetButtonDown("ChangeActionLeftJ" + player) && canInteract && isAlive)
+        if (Input.GetButtonDown("ChangeActionLeftJ" + player) && canInteract && isAlive && !isHolding)
         {
             if ((int)currentAction > 1)
             {
@@ -119,7 +124,7 @@ public class SC_InteractTV : MonoBehaviour {
         }
     }
 
-    public void CanIntertact(SC_TV script, bool isPlayingSound)
+    public void CanIntertact(SC_TV script)
     {
         TVScript = script;
         canInteract = true;
