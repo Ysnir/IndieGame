@@ -44,7 +44,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
             switch (currentAction)      // un switch pour agir en fonction de l'action
             {
                 case Action.GRAB_RELEASE:
-				    if (PickUpObjectScript.isHold)    // si l'objet est deja porte
+				    if (PickUpObjectScript.IsHold)    // si l'objet est deja porte
                     {
                   		PickUpObjectScript.Release(playerScript);
 						actionText.text = "Attraper";
@@ -97,7 +97,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
         switch (currentAction)
         {
             case Action.GRAB_RELEASE:
-                if (PickUpObjectScript.isHold)
+                if (PickUpObjectScript.IsHold)
                 {
                 	actionText.text = "Lacher";
                 }
