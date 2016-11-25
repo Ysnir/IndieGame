@@ -22,7 +22,7 @@ public class SC_Bed : MonoBehaviour {
             SC_Player playerScript = c.GetComponent<SC_Player>();
             if(!playerScript.IsHolding) 
             {
-                c.gameObject.GetComponent<SC_InteractBed>().CanIntertact(this);
+                c.gameObject.GetComponent<SC_InteractBed>().CanInteract(this);
             }
         }
     }
@@ -31,7 +31,7 @@ public class SC_Bed : MonoBehaviour {
     {
         if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui vient d'en sortir
         {
-            c.gameObject.GetComponent<SC_InteractBed>().CanNotIntertact();
+            c.gameObject.GetComponent<SC_InteractBed>().CanNotInteract();
         }
     }
 

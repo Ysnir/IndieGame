@@ -30,7 +30,7 @@ public class SC_TV : MonoBehaviour {
             if(!playerScript.IsHolding) 
             {
                 On();
-                c.gameObject.GetComponent<SC_InteractTV>().CanIntertact(this);
+                c.gameObject.GetComponent<SC_InteractTV>().CanInteract(this);
             }
 
 			if (isThrown)  // si l'objet est en train de se faire lancer
@@ -45,7 +45,7 @@ public class SC_TV : MonoBehaviour {
         if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui vient d'en sortir et que le son jouait déjà
         {
             Off();
-            c.gameObject.GetComponent<SC_InteractTV>().CanNotIntertact();
+            c.gameObject.GetComponent<SC_InteractTV>().CanNotInteract();
         }
     }
 

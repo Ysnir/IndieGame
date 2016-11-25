@@ -109,7 +109,7 @@ public class SC_InteractBed : MonoBehaviour {
         }
     }
 
-    public void CanIntertact(SC_Bed script)
+    public void CanInteract(SC_Bed script)
     {
         BedScript = script;
         canInteract = true;
@@ -117,7 +117,7 @@ public class SC_InteractBed : MonoBehaviour {
         action.SetActive(true);
     }
 
-    public void CanNotIntertact()
+    public void CanNotInteract()
     {
         canInteract = false;
         action.SetActive(false);

@@ -8,11 +8,10 @@ public class SC_InteractPickUpObject : MonoBehaviour {
     SC_PickUpObjectTemp PickUpObjectScript;
     Text actionText;
     Action currentAction;  
-    enum Action {GRAB_RELEASE=1, THROW=2};// l'action sélectionnée par le joueur. 1 = attraper ; 2 = lacher ; 3 = lancer
+    enum Action {GRAB_RELEASE=1, THROW=2};// l'action sélectionnée par le joueur. 1 = attraper_lacher ; 2 = lancer
     bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
     bool isAlive = true;    // le joueur est-il toujours en vie ?
-    bool isHolding = false;    // le joueur est-il entrain de porter un objet?
 
 	// Use this for initialization
 	void Start () {
@@ -31,14 +30,10 @@ public class SC_InteractPickUpObject : MonoBehaviour {
         isAlive = status;
     }
 
-    public void setIsHolding(bool _isHolding) {
-        isHolding = _isHolding;
-    }
-
     // Update is called once per frame
     void Update () {
 
-        if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive && !isHolding)  // lorsqu'on appuie sur la touche action
+        if (Input.GetButtonDown("ActionJ"+player) && canInteract && isAlive)  // lorsqu'on appuie sur la touche action
         {
 			SC_Player playerScript = GameObject.FindWithTag("Player"+player).GetComponent<SC_Player>();
             switch (currentAction)      // un switch pour agir en fonction de l'action
@@ -66,7 +61,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
             
         }
 
-        if (Input.GetButtonDown("ChangeActionRightJ" + player) && canInteract && isAlive && !isHolding)
+        if (Input.GetButtonDown("ChangeActionRightJ" + player) && canInteract && isAlive)
         {
             if ((int)currentAction < Enum.GetNames(typeof(Action)).Length)  //Compare l'action courante avec le nombre total d'action possible
             {
@@ -78,7 +73,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
             }
             NewAction();
         }
-        if (Input.GetButtonDown("ChangeActionLeftJ" + player) && canInteract && isAlive && !isHolding)
+        if (Input.GetButtonDown("ChangeActionLeftJ" + player) && canInteract && isAlive)
         {
             if ((int)currentAction > 1)
             {
@@ -86,7 +81,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
             }
             else
             {
-                currentAction = (Action)3;  // retour à la dernière action
+                currentAction = (Action)2;  // retour à la dernière action
             }
             NewAction();
         }
@@ -116,7 +111,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
         }
     }
 
-	public void CanIntertact(SC_PickUpObjectTemp script)
+	public void CanInteract(SC_PickUpObjectTemp script)
     {
         PickUpObjectScript = script;
         canInteract = true;
@@ -124,7 +119,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
         action.SetActive(true);
     }
 
-    public void CanNotIntertact()
+    public void CanNotInteract()
     {
         canInteract = false;
         action.SetActive(false);

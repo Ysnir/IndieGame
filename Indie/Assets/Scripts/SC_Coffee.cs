@@ -30,7 +30,7 @@ public class SC_Coffee : MonoBehaviour {
 	{
 		if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui vient d'en sortir et que le son jouait déjà
 		{
-			c.gameObject.GetComponent<SC_InteractCoffee>().CanNotIntertact();
+			c.gameObject.GetComponent<SC_InteractCoffee>().CanNotInteract();
 		}
 	}
 

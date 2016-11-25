@@ -116,7 +116,7 @@ public class SC_InteractDoor : MonoBehaviour {
         }
     }
 
-    public void CanIntertact(SC_Door script)
+    public void CanInteract(SC_Door script)
     {
         DoorScript = script;
         canInteract = true;
@@ -124,7 +124,7 @@ public class SC_InteractDoor : MonoBehaviour {
         action.SetActive(true);
     }
 
-    public void CanNotIntertact()
+    public void CanNotInteract()
     {
         canInteract = false;
         action.SetActive(false);

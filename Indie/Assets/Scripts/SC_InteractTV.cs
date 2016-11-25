@@ -124,7 +124,7 @@ public class SC_InteractTV : MonoBehaviour {
         }
     }
 
-    public void CanIntertact(SC_TV script)
+    public void CanInteract(SC_TV script)
     {
         TVScript = script;
         canInteract = true;
@@ -132,7 +132,7 @@ public class SC_InteractTV : MonoBehaviour {
         action.SetActive(true);
     }
 
-    public void CanNotIntertact()
+    public void CanNotInteract()
     {
         canInteract = false;
         action.SetActive(false);
