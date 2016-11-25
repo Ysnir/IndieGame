@@ -6,7 +6,7 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
 
     CapsuleCollider capsuleCollider;
 
-    bool isHold = false;    // l'objet est-il tenu par quelqu'un ?
+    bool isHeld = false;    // l'objet est-il tenu par quelqu'un ?
     //int potentialOwner;
     //int owner;
     List<int> potentialOwners = new List<int>();
@@ -24,11 +24,11 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
         for (int i = 0; i<potentialOwners.Count; i++)   // pour tout télément dans la liste potentialOwners
         {
             SC_Player ownerScript = GameObject.FindWithTag("Player" + potentialOwners[i]).GetComponent<SC_Player>();
-            if (potentialOwners.Count > 0 && Input.GetButtonDown("ActionJ" + potentialOwners[i]) && !isHold)   // si le joueur appuie sur A alors qu'il ne tient pas l'objet
+            if (potentialOwners.Count > 0 && Input.GetButtonDown("ActionJ" + potentialOwners[i]) && !isHeld)   // si le joueur appuie sur A alors qu'il ne tient pas l'objet
             {
                 Grab(ownerScript);
             }
-            else if (Input.GetButtonDown("ActionJ" + potentialOwners[i]) && isHold)   // si le joueur appuie sur A alors qu'il tient l'objet
+            else if (Input.GetButtonDown("ActionJ" + potentialOwners[i]) && isHeld)   // si le joueur appuie sur A alors qu'il tient l'objet
             {
                 Release(ownerScript);
             }
@@ -37,10 +37,16 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
 
     void OnTriggerEnter(Collider c) // Si quelque chose entre dans le trigger
     {
-        if ((c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4")) && !isHold)   //  Si c'est l'un des joueurs qui est entré dans le trigger et que l'objet n'est pas possédé
+        if ((c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4")) && !isHeld)   //  Si c'est l'un des joueurs qui est entré dans le trigger et que l'objet n'est pas possédé
         {
             //potentialOwner=c.GetComponent<SC_Player>().player;
             potentialOwners.Add(c.GetComponent<SC_Player>().player);        // On ajoute le joueur à la liste des gens qui peuvent prendre l'objet
+            
+            SC_Player playerScript = c.GetComponent<SC_Player>();
+            if(!playerScript.IsHolding) 
+            {
+                c.gameObject.GetComponent<SC_InteractPickUpObject>().CanIntertact(this);
+            }
         }
     }
 
@@ -53,13 +59,18 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
         {
             potentialOwners.Remove(leavingPlayer);
         }
+
+        if (c.CompareTag("Player1") || c.CompareTag("Player2") || c.CompareTag("Player3") || c.CompareTag("Player4"))   // Si c'est l'un des joueurs qui vient d'en sortir et que le son jouait déjà
+        {
+            c.gameObject.GetComponent<SC_InteractPickUpObject>().CanNotIntertact();
+        }
     }
 
     public void Grab(SC_Player c)
     {
         transform.SetParent(c.transform, true);
         capsuleCollider.enabled = false;
-        isHold = true;
+        isHeld = true;
         c.notifyIsHolding(true);
     }
 
@@ -67,15 +78,15 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
     {
         transform.SetParent(null);
         capsuleCollider.enabled = true;
-        isHold = false;
+        isHeld = false;
         c.notifyIsHolding(false);
     }
 
-    public bool IsHold
+    public bool IsHeld
     {
         get 
         {
-            return isHold;
+            return isHeld;
         }
     }
 }

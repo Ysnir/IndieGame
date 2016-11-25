@@ -108,10 +108,14 @@ public class SC_Player : MonoBehaviour {
 
     public void notifyIsHolding(bool _isHolding) {
         isHolding = _isHolding;
-        gameObject.SendMessage("setIsHolding", _isHolding);
+        gameObject.SendMessage("setIsHolding", _isHolding); // on dit à tous les autres script que le personnage porte un objet
     }
 
-    public bool getIsHolding () {
-        return isHolding;
+    public bool IsHolding
+    {
+        get 
+        {
+            return isHolding;
+        }
     }
 }

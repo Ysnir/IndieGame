@@ -19,7 +19,7 @@ public class SC_Coffee : MonoBehaviour {
 	{
 		if (c.CompareTag ("Player1") || c.CompareTag ("Player2") || c.CompareTag ("Player3") || c.CompareTag ("Player4")) {   // Si c'est l'un des joueurs qui est entré dans le trigger et que le son n'est pas déjà en train de se faire jouer
 			SC_Player playerScript = c.GetComponent<SC_Player>();
-            if(!playerScript.getIsHolding()) 
+            if(!playerScript.IsHolding) 
             {
 				c.gameObject.GetComponent<SC_InteractCoffee> ().CanInteract(this);
 			}
