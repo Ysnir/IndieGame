@@ -21,18 +21,18 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()      // Ne fonctionne pas, appelle les deux dans la même frame
     {
-        for (int i = 0; i<potentialOwners.Count; i++)   // pour tout télément dans la liste potentialOwners
+        /*for (int i = 0; i<potentialOwners.Count; i++)   // pour tout télément dans la liste potentialOwners
         {
             SC_Player ownerScript = GameObject.FindWithTag("Player" + potentialOwners[i]).GetComponent<SC_Player>();
             if (potentialOwners.Count > 0 && Input.GetButtonDown("ActionJ" + potentialOwners[i]) && !isHeld)   // si le joueur appuie sur A alors qu'il ne tient pas l'objet
             {
-                Grab(ownerScript);
+                //Grab(ownerScript);
             }
             else if (Input.GetButtonDown("ActionJ" + potentialOwners[i]) && isHeld)   // si le joueur appuie sur A alors qu'il tient l'objet
             {
-                Release(ownerScript);
+                //Release(ownerScript);
             }
-        }
+        }*/
     }
 
     void OnTriggerEnter(Collider c) // Si quelque chose entre dans le trigger
@@ -74,6 +74,7 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
 
     public void Grab(SC_Player c)
     {
+        Debug.Log("Grabb'n");
         transform.SetParent(c.transform, true);
         capsuleCollider.enabled = false;
         isHeld = true;
@@ -82,6 +83,7 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
 
     public void Release(SC_Player c)
     {
+        Debug.Log("Releas'n");
         transform.SetParent(null);
         capsuleCollider.enabled = true;
         isHeld = false;
