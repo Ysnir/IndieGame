@@ -8,7 +8,7 @@ public class SC_InteractPickUpObject : MonoBehaviour {
     SC_PickUpObjectTemp PickUpObjectScript;
     Text actionText;
     Action currentAction;  
-    enum Action {GRAB_RELEASE=1, THROW=2};// l'action sélectionnée par le joueur. 1 = attraper_lacher ; 2 = lancer
+    enum Action {GRAB_RELEASE=1, CONSUME=2};// l'action sélectionnée par le joueur. 1 = attraper_lacher ; 2 = consommer l'objet
     bool canInteract;   // à true lorsque le joueur peut interagir avec cet élément
     int player = 0;     // la variable qui va servir à savoir à quel joueur ce script appartient.
     bool isAlive = true;    // le joueur est-il toujours en vie ?
@@ -51,8 +51,8 @@ public class SC_InteractPickUpObject : MonoBehaviour {
 					}
                     break;
 
-                case Action.THROW:
-                    //PickUpObjectScript.Throw(new Vector2(TVScript.gameObject.transform.position.x - transform.position.x, TVScript.gameObject.transform.position.y - transform.position.y).normalized);
+                case Action.CONSUME:
+                    PickUpObjectScript.Consume(playerScript);
                     break;
 
                 default:
@@ -102,8 +102,8 @@ public class SC_InteractPickUpObject : MonoBehaviour {
                 }
                 break;
 
-            case Action.THROW:
-                actionText.text = "Lancer";
+            case Action.CONSUME:
+                actionText.text = "Consommer";
                 break;
 
             default:

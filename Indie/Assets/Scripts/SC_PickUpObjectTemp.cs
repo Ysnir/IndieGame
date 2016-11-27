@@ -66,6 +66,12 @@ public class SC_PickUpObjectTemp : MonoBehaviour {
         }
     }
 
+    public void Consume(SC_Player c) { 
+        //c.notifyConsumming(this) //TODO prendre en paramètre le script d'un joueur pour le notifier de la consommation d'un objet spécifique
+        c.gameObject.GetComponent<SC_InteractPickUpObject>().CanNotInteract();
+        Destroy(gameObject);
+    }
+
     public void Grab(SC_Player c)
     {
         transform.SetParent(c.transform, true);
